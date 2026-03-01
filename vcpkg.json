@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "forgottenserver",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "boost-asio",
+    "boost-filesystem",
+    "boost-iostreams",
+    "boost-lockfree",
+    "boost-system",
+    "boost-variant",
+    "fmt",
+    "luajit",
+    "openssl",
+    "pugixml",
+    "cryptopp",
+    "zlib"
+  ],
+  "features": {
+	"pugixml": {
+	  "description": "Enable XML support",
+	  "dependencies": [
+		"pugixml"
+	  ]
+	},
+	"luajit": {
+      "description": "Use LuaJIT instead of Lua",
+      "dependencies": [
+        "luajit"
+      ]
+    },
+    "libmariadb": {
+      "description": "Use MariaDB client library",
+      "dependencies": [
+        "libmariadb"
+      ]
+    },
+    "gmp": {
+      "description": "Use GNU Multiple Precision Arithmetic Library",
+      "supports": "linux",
+      "dependencies": [
+        "gmp"
+      ]
+    },
+    "mpir": {
+      "description": "Use MPIR multiple precision arithmetic library",
+      "supports": "windows",
+      "dependencies": [
+        "mpir"
+      ]
+    }
+  },
+  "default-features": [
+    "libmariadb",
+	"luajit",
+	"pugixml"
+  ],
+  "builtin-baseline": "389e18e8380daab3884e7dc0710ad7f4a264def6"
+}
