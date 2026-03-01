@@ -72,6 +72,16 @@ closedLevelDoors = {
 	10789, 12095, 12102, 12195, 12204, 19845, 19854, 19985, 19994, 20278, 20287
 }
 
+function getBlessingsCost(level)
+	if level <= 30 then
+		return 2000
+	elseif level >= 120 then
+		return 20000
+	else
+		return (level - 20) * 200
+	end
+end
+
 function doCopyItem(item, attributes)
     local attributes = attributes or false
     local ret = doCreateItemEx(item.itemid, item.type)
