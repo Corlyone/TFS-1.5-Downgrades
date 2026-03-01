@@ -72,6 +72,29 @@ closedLevelDoors = {
 	10789, 12095, 12102, 12195, 12204, 19845, 19854, 19985, 19994, 20278, 20287
 }
 
+function doCopyItem(item, attributes)
+    local attributes = attributes or false
+    local ret = doCreateItemEx(item.itemid, item.type)
+    if(attributes) then
+        if(item.actionid > 0) then
+            doSetItemActionId(ret, item.actionid)
+        end
+    end
+ 
+    if(isContainer(item.uid) == TRUE) then
+        for i = (getContainerSize(item.uid) - 1), 0, -1 do
+            local tmp = getContainerItem(item.uid, i)
+            if(tmp.itemid > 0) then
+                doAddContainerItemEx(ret, doCopyItem(tmp, true).uid)
+            end
+        end
+    end
+ 
+    return getThing(ret)
+end
+
+STORAGEVALUE_PROMOTION = 30018
+
 function getDistanceBetween(firstPosition, secondPosition)
 	local xDif = math.abs(firstPosition.x - secondPosition.x)
 	local yDif = math.abs(firstPosition.y - secondPosition.y)
@@ -80,6 +103,15 @@ function getDistanceBetween(firstPosition, secondPosition)
 		posDif = posDif + 15
 	end
 	return posDif
+end
+
+function isInRange(pos, fromPos, toPos)
+	return pos.x >= fromPos.x and pos.y >= fromPos.y and pos.z >= fromPos.z and pos.x <= toPos.x and pos.y <= toPos.y and pos.z <= toPos.z
+end
+
+
+function doComparePositions(pos1, pos2)
+    return (pos1.x == pos2.x and pos1.y == pos2.y and pos1.z == pos2.z)
 end
 
 function getFormattedWorldTime()

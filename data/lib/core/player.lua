@@ -312,3 +312,45 @@ function Player.getWeaponType(self)
 	end
 	return WEAPON_NONE
 end
+
+function Player.isDruid(self)
+	return isInArray({2, 6}, self:getVocation():getId())
+end
+
+function Player.isKnight(self)
+	return isInArray({4, 8}, self:getVocation():getId())
+end
+
+function Player.isPaladin(self)
+	return isInArray({3, 7}, self:getVocation():getId())
+end
+
+function Player.isMage(self)
+	return isInArray({1, 2, 5, 6}, self:getVocation():getId())
+end
+
+function Player.isSorcerer(self)
+	return isInArray({1, 5}, self:getVocation():getId())
+end
+
+function Player.getCookiesDelivered(self)
+	local storage, amount = {
+	Storage.WhatAFoolishQuest.CookieDelivery.SimonTheBeggar, 
+	Storage.WhatAFoolishQuest.CookieDelivery.Markwin,
+	Storage.WhatAFoolishQuest.CookieDelivery.Ariella,
+	Storage.WhatAFoolishQuest.CookieDelivery.Hairycles,
+	Storage.WhatAFoolishQuest.CookieDelivery.Djinn,
+	Storage.WhatAFoolishQuest.CookieDelivery.AvarTar,
+	Storage.WhatAFoolishQuest.CookieDelivery.OrcKing,
+	Storage.WhatAFoolishQuest.CookieDelivery.Lorbas,
+	Storage.WhatAFoolishQuest.CookieDelivery.Wyda,
+	Storage.WhatAFoolishQuest.CookieDelivery.Hjaern	
+	}, 0
+	for i = 1, #storage do
+		if self:getStorageValue(storage[i]) == 1 then
+			amount = amount + 1
+		end
+	end
+	return amount
+end
+
