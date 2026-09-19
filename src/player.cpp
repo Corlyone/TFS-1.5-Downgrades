@@ -335,7 +335,7 @@ void Player::getShieldAndWeapon(const Item*& shield, const Item*& weapon) const
 int32_t Player::getDefense() const
 {
 	int32_t defenseSkill = getSkillLevel(SKILL_FIST);
-	int32_t defenseValue = 7;
+	int32_t defenseValue = 5;
 	const Item* weapon;
 	const Item* shield;
 	getShieldAndWeapon(shield, weapon);
@@ -346,22 +346,55 @@ int32_t Player::getDefense() const
 	}
 
 	if (shield) {
-		defenseValue = weapon != nullptr ? shield->getDefense() + weapon->getExtraDefense() : shield->getDefense();
+		defenseValue = shield->getDefense() + shield->getExtraDefense();
+		if (weapon) {
+			defenseValue += weapon->getExtraDefense();
+		}
 		defenseSkill = getSkillLevel(SKILL_SHIELD);
 	}
 
 	if (defenseSkill == 0) {
 		switch (fightMode) {
-			case FIGHTMODE_ATTACK:
-			case FIGHTMODE_BALANCED:
-				return 1;
+		case FIGHTMODE_ATTACK:
+			return 1;
+		case FIGHTMODE_BALANCED:
+			return 1;
 
-			case FIGHTMODE_DEFENSE:
-				return 2;
+		case FIGHTMODE_DEFENSE:
+			return 2;
 		}
 	}
 
-	return (defenseSkill / 4. + 2.23) * defenseValue * 0.15 * getDefenseFactor() * vocation->defenseMultiplier;
+	int32_t totalDefense = 0;
+
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		totalDefense = defenseValue;
+
+		fightMode_t newFightMode = fightMode;
+		if ((followCreature || !attackedCreature) && earliestAttackTime <= OTSYS_TIME()) {
+			newFightMode = FIGHTMODE_DEFENSE;
+		}
+
+		if (newFightMode == FIGHTMODE_DEFENSE) {
+			totalDefense += 4 * totalDefense / 10;
+		}
+		else if (newFightMode == FIGHTMODE_ATTACK) {
+			totalDefense -= 4 * totalDefense / 10;
+		}
+
+		totalDefense *= vocation->defenseMultiplier;
+
+		int32_t formula = (5 * defenseSkill + 50) * totalDefense;
+		int32_t rnd = rand() % 100;
+		totalDefense = formula * ((rand() % 100 + rnd) / 2.5) / 10000;
+	}
+	else {
+		totalDefense = (defenseSkill / 4. + 2.23) * defenseValue * 0.15 * getDefenseFactor() * vocation->defenseMultiplier;
+	}
+
+	return totalDefense;
+
+	//return (defenseSkill / 4. + 2.23) * defenseValue * 0.15 * getDefenseFactor() * vocation->defenseMultiplier;
 }
 
 uint32_t Player::getAttackSpeed() const
@@ -1945,7 +1978,7 @@ bool Player::hasShield() const
 }
 
 BlockType_t Player::blockHit(Creature* attacker, CombatType_t combatType, int32_t& damage,
-                             bool checkDefense /* = false*/, bool checkArmor /* = false*/, bool field /* = false*/, bool ignoreResistances /* = false*/)
+	bool checkDefense /* = false*/, bool checkArmor /* = false*/, bool field /* = false*/, bool ignoreResistances /* = false*/, bool /*meleeHit = false*/)
 {
 	BlockType_t blockType = Creature::blockHit(attacker, combatType, damage, checkDefense, checkArmor, field, ignoreResistances);
 

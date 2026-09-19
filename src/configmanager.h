@@ -69,6 +69,7 @@ class ConfigManager
 			ONLY_INVITED_CAN_MOVE_HOUSE_ITEMS,
 			REMOVE_ON_DESPAWN,
 			PLAYER_CONSOLE_LOGS,
+			USE_CLASSIC_COMBAT_FORMULAS,
 
 			LAST_BOOLEAN_CONFIG /* this must be the last one */
 		};
@@ -141,6 +142,16 @@ class ConfigManager
 			LAST_INTEGER_CONFIG /* this must be the last one */
 		};
 
+		enum floating_config_t {
+			RATE_MONSTER_HEALTH,
+			RATE_MONSTER_ATTACK,
+			RATE_MONSTER_DEFENSE,
+			RATE_MONSTER_SPEED,
+			RATE_MONSTER_SPELLCHANCE,
+
+			LAST_FLOATING_CONFIG
+		};
+
 		bool load();
 		bool reload();
 
@@ -148,6 +159,7 @@ class ConfigManager
 		int32_t getNumber(integer_config_t what) const;
 		bool getBoolean(boolean_config_t what) const;
 		float getExperienceStage(uint32_t level) const;
+		float_t getFloat(floating_config_t what) const;
 
 		bool setString(string_config_t what, const std::string& value);
 		bool setNumber(integer_config_t what, int32_t value);
@@ -157,6 +169,7 @@ class ConfigManager
 		std::string string[LAST_STRING_CONFIG] = {};
 		int32_t integer[LAST_INTEGER_CONFIG] = {};
 		bool boolean[LAST_BOOLEAN_CONFIG] = {};
+		float_t floating[LAST_FLOATING_CONFIG] = {};
 
 		ExperienceStages expStages = {};
 

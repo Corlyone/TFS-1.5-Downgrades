@@ -301,6 +301,31 @@ std::mt19937& getRandomGenerator()
 	return generator;
 }
 
+int32_t random(int32_t minNumber, int32_t maxNumber)
+{
+	bool negate = minNumber < 0 || maxNumber < 0;
+	if (negate) {
+		minNumber = std::abs(minNumber);
+		maxNumber = std::abs(maxNumber);
+	}
+
+	int32_t result = maxNumber - minNumber + 1;
+	if (result > 0) {
+		result = rand() % result + minNumber;
+		if (negate) {
+			return -result;
+		}
+
+		return result;
+	}
+
+	if (negate) {
+		return -minNumber;
+	}
+
+	return minNumber;
+}
+
 int32_t uniform_random(int32_t minNumber, int32_t maxNumber)
 {
 	static std::uniform_int_distribution<int32_t> uniformRand;

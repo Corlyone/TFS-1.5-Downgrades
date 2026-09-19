@@ -106,7 +106,7 @@ ConditionDamage* Monsters::getDamageCondition(ConditionType_t conditionType,
 	return condition;
 }
 
-bool Monsters::deserializeSpell(const pugi::xml_node& node, spellBlock_t& sb, const std::string& description)
+bool Monsters::deserializeSpell(MonsterType* mType, const pugi::xml_node& node, spellBlock_t& sb, const std::string& description)
 {
 	std::string name;
 	std::string scriptName;
@@ -245,6 +245,25 @@ bool Monsters::deserializeSpell(const pugi::xml_node& node, spellBlock_t& sb, co
 			if ((attackAttribute = node.attribute("attack")) && (skillAttribute = node.attribute("skill"))) {
 				sb.minCombatValue = 0;
 				sb.maxCombatValue = -Weapons::getMaxMeleeDamage(pugi::cast<int32_t>(skillAttribute.value()), pugi::cast<int32_t>(attackAttribute.value()));
+
+				mType->info.baseSkill = pugi::cast<uint32_t>(skillAttribute.value());
+				mType->info.baseAttack = pugi::cast<uint32_t>(attackAttribute.value());
+
+				if ((attr = node.attribute("skillfactor"))) {
+					mType->info.skillFactorPercent = pugi::cast<uint32_t>(attr.value());
+					if (mType->info.skillFactorPercent < 1000) {
+						std::cout << "[Monsters::deserializeSpell]: " << mType->name << " - skill factor lower than 1000" << std::endl;
+						mType->info.skillFactorPercent = 1000;
+					}
+				}
+
+				if ((attr = node.attribute("skillnextlevel"))) {
+					mType->info.skillNextLevel = pugi::cast<uint32_t>(attr.value());
+				}
+
+				if ((attr = node.attribute("skilladdcount"))) {
+					mType->info.skillAddCount = pugi::cast<uint32_t>(attr.value());
+				}
 			}
 
 			ConditionType_t conditionType = CONDITION_NONE;
@@ -395,8 +414,8 @@ bool Monsters::deserializeSpell(const pugi::xml_node& node, spellBlock_t& sb, co
 			}
 
 			if ((attr = node.attribute("monster"))) {
-				MonsterType* mType = g_monsters.getMonsterType(attr.as_string());
-				if (mType) {
+				MonsterType* monsterType = g_monsters.getMonsterType(attr.as_string());
+				if (monsterType) {
 					ConditionOutfit* condition = static_cast<ConditionOutfit*>(Condition::createCondition(CONDITIONID_COMBAT, CONDITION_OUTFIT, duration, 0));
 					condition->setOutfit(mType->info.outfit);
 					combat->setParam(COMBAT_PARAM_AGGRESSIVE, 0);
@@ -1025,9 +1044,10 @@ MonsterType* Monsters::loadMonster(const std::string& file, const std::string& m
 	if ((node = monsterNode.child("attacks"))) {
 		for (auto attackNode : node.children()) {
 			spellBlock_t sb;
-			if (deserializeSpell(attackNode, sb, monsterName)) {
+			if (deserializeSpell(mType, attackNode, sb, monsterName)) {
 				mType->info.attackSpells.emplace_back(std::move(sb));
-			} else {
+			}
+			else {
 				std::cout << "[Warning - Monsters::loadMonster] Cant load spell. " << file << std::endl;
 			}
 		}
@@ -1044,9 +1064,10 @@ MonsterType* Monsters::loadMonster(const std::string& file, const std::string& m
 
 		for (auto defenseNode : node.children()) {
 			spellBlock_t sb;
-			if (deserializeSpell(defenseNode, sb, monsterName)) {
+			if (deserializeSpell(mType, defenseNode, sb, monsterName)) {
 				mType->info.defenseSpells.emplace_back(std::move(sb));
-			} else {
+			}
+			else {
 				std::cout << "[Warning - Monsters::loadMonster] Cant load spell. " << file << std::endl;
 			}
 		}

@@ -87,6 +87,18 @@ bool getGlobalBoolean(lua_State* L, const char* identifier, const bool defaultVa
 	return val != 0;
 }
 
+float_t getGlobalFloat(lua_State* L, const char* identifier, const float_t defaultValue = 0.0)
+{
+	lua_getglobal(L, identifier);
+	if (!lua_isnumber(L, -1)) {
+		return defaultValue;
+	}
+
+	float_t val = lua_tonumber(L, -1);
+	lua_pop(L, 1);
+	return val;
+}
+
 }
 
 ConfigManager::ConfigManager()
@@ -264,6 +276,7 @@ bool ConfigManager::load()
 	boolean[ONLY_INVITED_CAN_MOVE_HOUSE_ITEMS] = getGlobalBoolean(L, "onlyInvitedCanMoveHouseItems", true);
 	boolean[REMOVE_ON_DESPAWN] = getGlobalBoolean(L, "removeOnDespawn", true);
 	boolean[PLAYER_CONSOLE_LOGS] = getGlobalBoolean(L, "showPlayerLogInConsole", true);
+	boolean[USE_CLASSIC_COMBAT_FORMULAS] = getGlobalBoolean(L, "useClassicCombatFormulas", true);
 
 	string[DEFAULT_PRIORITY] = getGlobalString(L, "defaultPriority", "high");
 	string[SERVER_NAME] = getGlobalString(L, "serverName", "");
@@ -308,6 +321,9 @@ bool ConfigManager::load()
 	integer[VIP_PREMIUM_LIMIT] = getGlobalNumber(L, "vipPremiumLimit", 100);
 	integer[DEPOT_FREE_LIMIT] = getGlobalNumber(L, "depotFreeLimit", 2000);
 	integer[DEPOT_PREMIUM_LIMIT] = getGlobalNumber(L, "depotPremiumLimit", 10000);
+
+	floating[RATE_MONSTER_ATTACK] = getGlobalFloat(L, "rateMonsterAttack", 1.0);
+	floating[RATE_MONSTER_DEFENSE] = getGlobalFloat(L, "rateMonsterDefense", 1.0);
 
 	expStages = loadXMLStages();
 	if (expStages.empty()) {
@@ -405,4 +421,13 @@ bool ConfigManager::setBoolean(boolean_config_t what, bool value)
 
 	boolean[what] = value;
 	return true;
+}
+
+float_t ConfigManager::getFloat(floating_config_t what) const
+{
+	if (what >= LAST_FLOATING_CONFIG) {
+		std::cout << "[Warning - ConfigManager::getFLoat] Accessing invalid index: " << what << std::endl;
+		return 0;
+	}
+	return floating[what];
 }

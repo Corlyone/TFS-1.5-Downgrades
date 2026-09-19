@@ -281,7 +281,7 @@ class Creature : virtual public Thing
 		}
 		virtual bool setAttackedCreature(Creature* creature);
 		virtual BlockType_t blockHit(Creature* attacker, CombatType_t combatType, int32_t& damage,
-		                             bool checkDefense = false, bool checkArmor = false, bool field = false, bool ignoreResistances = false);
+			bool checkDefense = false, bool checkArmor = false, bool field = false, bool ignoreResistances = false, bool meleeHit = false);
 
 		bool setMaster(Creature* newMaster);
 
@@ -524,6 +524,9 @@ class Creature : virtual public Thing
 		int32_t health = 1000;
 		int32_t healthMax = 1000;
 		uint8_t drunkenness = 0;
+
+		uint64_t lastDefense = OTSYS_TIME();
+		uint64_t earliestDefendTime = 0;
 
 		Outfit_t currentOutfit;
 		Outfit_t defaultOutfit;

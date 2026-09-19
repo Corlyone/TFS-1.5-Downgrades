@@ -93,12 +93,16 @@ class Monster final : public Creature
 		RaceType_t getRace() const override {
 			return mType->info.race;
 		}
+		/*
 		int32_t getArmor() const override {
 			return mType->info.armor;
 		}
 		int32_t getDefense() const override {
 			return mType->info.defense;
 		}
+		*/
+		int32_t getArmor() const override;
+		int32_t getDefense() const override;
 		bool isPushable() const override {
 			return mType->info.pushable && baseSpeed != 0;
 		}
@@ -180,7 +184,7 @@ class Monster final : public Creature
 		}
 
 		BlockType_t blockHit(Creature* attacker, CombatType_t combatType, int32_t& damage,
-		                     bool checkDefense = false, bool checkArmor = false, bool field = false, bool ignoreResistances = false) override;
+			bool checkDefense = false, bool checkArmor = false, bool field = false, bool ignoreResistances = false, bool meleeHit = false) override;
 
 		static uint32_t monsterAutoID;
 
@@ -195,6 +199,7 @@ class Monster final : public Creature
 		Spawn* spawn = nullptr;
 
 		int64_t lastMeleeAttack = 0;
+		int64_t earliestMeleeAttack = 0;
 
 		uint32_t attackTicks = 0;
 		uint32_t targetTicks = 0;
@@ -208,6 +213,12 @@ class Monster final : public Creature
 		int32_t stepDuration = 0;
 
 		Position masterPos;
+
+		uint32_t currentSkill = 0;
+		uint32_t skillCurrentExp = 0;
+		uint32_t skillFactorPercent = 1000;
+		uint32_t skillNextLevel = 0;
+		uint32_t skillLearningPoints = 30;
 
 		bool ignoreFieldDamage = false;
 		bool isIdle = true;
@@ -225,6 +236,8 @@ class Monster final : public Creature
 		void removeFriend(Creature* creature);
 		void addTarget(Creature* creature, bool pushFront = false);
 		void removeTarget(Creature* creature);
+
+		void addSkillPoint();
 
 		void updateTargetList();
 		void clearTargetList();

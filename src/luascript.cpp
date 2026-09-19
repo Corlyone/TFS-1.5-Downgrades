@@ -2053,6 +2053,11 @@ void LuaScriptInterface::registerFunctions()
 	registerEnumIn("configKeys", ConfigManager::MAX_PACKETS_PER_SECOND)
 	registerEnumIn("configKeys", ConfigManager::PLAYER_CONSOLE_LOGS)
 
+	registerEnumIn("configKeys", ConfigManager::USE_CLASSIC_COMBAT_FORMULAS);
+
+	registerEnumIn("configKeys", ConfigManager::RATE_MONSTER_ATTACK);
+	registerEnumIn("configKeys", ConfigManager::RATE_MONSTER_DEFENSE);
+
 	// os
 	registerMethod("os", "mtime", LuaScriptInterface::luaSystemTime);
 

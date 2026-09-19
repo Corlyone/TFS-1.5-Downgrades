@@ -144,12 +144,50 @@ bool Weapons::registerLuaEvent(Weapon* weapon)
 //monsters
 int32_t Weapons::getMaxMeleeDamage(int32_t attackSkill, int32_t attackValue)
 {
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		//int32_t maxWeaponDamage = attackValue;
+		//int32_t formula = (5 * attackSkill + 50) * maxWeaponDamage;
+		//int32_t rnd = rand() % 100;
+		//return formula * ((rand() % 100 + rnd) / 2) / 10000;
+		return static_cast<int32_t>(std::ceil((5 * attackSkill + 50) * attackValue * 99. / 10000.));
+	}
+
 	return static_cast<int32_t>(std::ceil((attackSkill * (attackValue * 0.05)) + (attackValue * 0.5)));
 }
 
 //players
+/*
 int32_t Weapons::getMaxWeaponDamage(uint32_t level, int32_t attackSkill, int32_t attackValue, float attackFactor)
 {
+	return static_cast<int32_t>(std::round((level / 5) + (((((attackSkill / 4.) + 1) * (attackValue / 3.)) * 1.03) / attackFactor)));
+}
+*/
+
+float Weapons::getRealMaxWeaponDamage(uint32_t level, int32_t attackSkill, int32_t attackValue)
+{
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		return (5.f * attackSkill + 50.f) * attackValue * 99.f / 10000.f;
+	}
+
+	return static_cast<int32_t>(std::round((level / 5) + (((((attackSkill / 4.) + 1) * (attackValue / 3.)) * 1.03) / 2.0f)));
+}
+
+int32_t Weapons::getMaxWeaponDamage(uint32_t level, int32_t attackSkill, int32_t attackValue, float attackFactor)
+{
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		int32_t maxWeaponDamage = attackValue;
+		if (attackFactor == 1.0f) {
+			maxWeaponDamage += 2 * maxWeaponDamage / 10;
+		}
+		else if (attackFactor == 2.0f) {
+			maxWeaponDamage -= 4 * maxWeaponDamage / 10;
+		}
+
+		int32_t formula = (5 * attackSkill + 50) * maxWeaponDamage;
+		int32_t rnd = rand() % 100;
+		return formula * ((rand() % 100 + rnd) / 2) / 10000;
+	}
+
 	return static_cast<int32_t>(std::round((level / 5) + (((((attackSkill / 4.) + 1) * (attackValue / 3.)) * 1.03) / attackFactor)));
 }
 
@@ -363,7 +401,13 @@ bool Weapon::useFist(Player* player, Creature* target)
 	CombatDamage damage;
 	damage.origin = ORIGIN_MELEE;
 	damage.primary.type = params.combatType;
-	damage.primary.value = -normal_random(0, maxDamage);
+	//damage.primary.value = -normal_random(0, maxDamage);
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		damage.primary.value = -maxDamage;
+	}
+	else {
+		damage.primary.value = -random(0, maxDamage);
+	}
 
 	Combat::doTargetCombat(player, target, damage, params);
 	if (!player->hasFlag(PlayerFlag_NotGainSkill) && player->getAddAttackSkill()) {
@@ -392,8 +436,10 @@ void Weapon::internalUseWeapon(Player* player, Item* item, Creature* target, int
 		}
 		damage.primary.type = params.combatType;
 		damage.primary.value = (getWeaponDamage(player, target, item) * damageModifier) / 100;
-		damage.secondary.type = getElementType();
-		damage.secondary.value = getElementDamage(player, target, item);
+		if (!g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+			damage.secondary.type = getElementType();
+			damage.secondary.value = getElementDamage(player, target, item);
+		}
 		Combat::doTargetCombat(player, target, damage, params);
 	}
 
@@ -602,7 +648,13 @@ int32_t WeaponMelee::getElementDamage(const Player* player, const Creature*, con
 	float attackFactor = player->getAttackFactor();
 
 	int32_t maxValue = Weapons::getMaxWeaponDamage(player->getLevel(), attackSkill, attackValue, attackFactor);
-	return -normal_random(0, static_cast<int32_t>(maxValue * player->getVocation()->meleeDamageMultiplier));
+	//return -normal_random(0, static_cast<int32_t>(maxValue * player->getVocation()->meleeDamageMultiplier));
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		return -(static_cast<int32_t>(maxValue * player->getVocation()->meleeDamageMultiplier));
+	}
+	else {
+		return -uniform_random(0, static_cast<int32_t>(maxValue * player->getVocation()->meleeDamageMultiplier));
+	}
 }
 
 int32_t WeaponMelee::getWeaponDamage(const Player* player, const Creature*, const Item* item, bool maxDamage /*= false*/) const
@@ -616,7 +668,13 @@ int32_t WeaponMelee::getWeaponDamage(const Player* player, const Creature*, cons
 		return -maxValue;
 	}
 
-	return -normal_random(0, maxValue);
+	//return -normal_random(0, maxValue);
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		return -maxValue;
+	}
+	else {
+		return -uniform_random(0, maxValue);
+	}
 }
 
 WeaponDistance::WeaponDistance(LuaScriptInterface* interface) :
@@ -829,7 +887,12 @@ int32_t WeaponDistance::getElementDamage(const Player* player, const Creature* t
 		}
 	}
 
-	return -normal_random(minValue, static_cast<int32_t>(maxValue * player->getVocation()->distDamageMultiplier));
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		return -(static_cast<int32_t>(maxValue * player->getVocation()->distDamageMultiplier));
+	}
+	else {
+		return -uniform_random(minValue, static_cast<int32_t>(maxValue * player->getVocation()->distDamageMultiplier));
+	}
 }
 
 int32_t WeaponDistance::getWeaponDamage(const Player* player, const Creature* target, const Item* item, bool maxDamage /*= false*/) const
@@ -861,7 +924,13 @@ int32_t WeaponDistance::getWeaponDamage(const Player* player, const Creature* ta
 	} else {
 		minValue = 0;
 	}
-	return -normal_random(minValue, maxValue);
+	//return -normal_random(minValue, maxValue);
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		return -maxValue;
+	}
+	else {
+		return -uniform_random(minValue, maxValue);
+	}
 }
 
 bool WeaponDistance::getSkillType(const Player* player, const Item*, skills_t& skill, uint32_t& skillpoint) const

@@ -119,29 +119,42 @@ CombatDamage Combat::getCombatDamage(Creature* creature, Creature* target) const
 	damage.origin = params.origin;
 	damage.primary.type = params.combatType;
 	if (formulaType == COMBAT_FORMULA_DAMAGE) {
-		damage.primary.value = normal_random(
+		damage.primary.value = random(
 			static_cast<int32_t>(mina),
 			static_cast<int32_t>(maxa)
 		);
-	} else if (creature) {
+		damage.primary.maxValue = static_cast<int32_t>(maxa);
+	}
+	else if (creature) {
 		int32_t min, max;
 		if (creature->getCombatValues(min, max)) {
-			damage.primary.value = normal_random(min, max);
-		} else if (Player* player = creature->getPlayer()) {
+			damage.primary.value = random(min, max);
+			damage.primary.maxValue = max;
+		}
+		else if (Player* player = creature->getPlayer()) {
 			if (params.valueCallback) {
 				params.valueCallback->getMinMaxValues(player, damage);
-			} else if (formulaType == COMBAT_FORMULA_LEVELMAGIC) {
+			}
+			else if (formulaType == COMBAT_FORMULA_LEVELMAGIC) {
 				int32_t levelFormula = player->getLevel() * 2 + player->getMagicLevel() * 3;
-				damage.primary.value = normal_random(std::fma(levelFormula, mina, minb), std::fma(levelFormula, maxa, maxb));
-			} else if (formulaType == COMBAT_FORMULA_SKILL) {
+				damage.primary.maxValue = std::fma(levelFormula, maxa, maxb);
+				//damage.primary.value = normal_random(std::fma(levelFormula, mina, minb), std::fma(levelFormula, maxa, maxb));
+				damage.primary.value = random(std::fma(levelFormula, mina, minb), damage.primary.maxValue);
+			}
+			else if (formulaType == COMBAT_FORMULA_SKILL) {
 				Item* tool = player->getWeapon();
 				const Weapon* weapon = g_weapons->getWeapon(tool);
 				if (weapon) {
-					damage.primary.value = normal_random(minb, std::fma(weapon->getWeaponDamage(player, target, tool, true), maxa, maxb));
-					damage.secondary.type = weapon->getElementType();
-					damage.secondary.value = weapon->getElementDamage(player, target, tool);
-				} else {
-					damage.primary.value = normal_random(minb, maxb);
+					damage.primary.value = random(minb, std::fma(weapon->getWeaponDamage(player, target, tool, true), maxa, maxb));
+					float maxDamage = Weapons::getRealMaxWeaponDamage(player->getLevel(), player->getWeaponSkill(tool), std::max<int32_t>(0, tool->getAttack()));
+					damage.primary.maxValue = -maxDamage * (1 + player->getWeaponSkill(tool) * (5 + rand() % 5) / 100);
+					//damage.primary.value = normal_random(minb, std::fma(weapon->getWeaponDamage(player, target, tool, true), maxa, maxb));
+					//damage.secondary.type = weapon->getElementType();
+					//damage.secondary.value = weapon->getElementDamage(player, target, tool);
+				}
+				else {
+					damage.primary.value = random(minb, maxb);
+					damage.primary.maxValue = maxb;
 				}
 			}
 		}
@@ -1144,8 +1157,10 @@ void ValueCallback::getMinMaxValues(Player* player, CombatDamage& damage) const
 					}
 				}
 
-				damage.secondary.type = weapon->getElementType();
-				damage.secondary.value = weapon->getElementDamage(player, nullptr, tool);
+				if (!g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+					damage.secondary.type = weapon->getElementType();
+					damage.secondary.value = weapon->getElementDamage(player, nullptr, tool);
+				}
 			}
 
 			lua_pushnumber(L, player->getWeaponSkill(item ? item : tool));
@@ -1166,9 +1181,13 @@ void ValueCallback::getMinMaxValues(Player* player, CombatDamage& damage) const
 	if (lua_pcall(L, parameters, 2, 0) != 0) {
 		LuaScriptInterface::reportError(nullptr, LuaScriptInterface::popString(L));
 	} else {
-		damage.primary.value = normal_random(
+		//damage.primary.value = normal_random(
+			//LuaScriptInterface::getNumber<int32_t>(L, -2),
+			//LuaScriptInterface::getNumber<int32_t>(L, -1)
+		damage.primary.maxValue = LuaScriptInterface::getNumber<int32_t>(L, -1);
+		damage.primary.value = random(
 			LuaScriptInterface::getNumber<int32_t>(L, -2),
-			LuaScriptInterface::getNumber<int32_t>(L, -1)
+			damage.primary.maxValue
 		);
 		lua_pop(L, 2);
 	}

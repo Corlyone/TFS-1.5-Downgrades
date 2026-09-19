@@ -837,24 +837,41 @@ void Creature::drainHealth(Creature* attacker, int32_t damage)
 }
 
 BlockType_t Creature::blockHit(Creature* attacker, CombatType_t combatType, int32_t& damage,
-                               bool checkDefense /* = false */, bool checkArmor /* = false */, bool /* field = false */, bool /* ignoreResistances = false */)
+	bool checkDefense /* = false */, bool checkArmor /* = false */, bool /* field = false */, bool /* ignoreResistances = false */, bool /*meleeHit  = false*/)
 {
 	BlockType_t blockType = BLOCK_NONE;
 
 	if (isImmune(combatType)) {
 		damage = 0;
 		blockType = BLOCK_IMMUNITY;
-	} else if (checkDefense || checkArmor) {
+	}
+	else if (checkDefense || checkArmor) {
 		bool hasDefense = false;
 
-		if (blockCount > 0) {
-			--blockCount;
-			hasDefense = true;
+		if (checkDefense) {
+			if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+				if (OTSYS_TIME() >= static_cast<int64_t>(earliestDefendTime)) {
+					hasDefense = true;
+					earliestDefendTime = lastDefense + 2000;
+					lastDefense = OTSYS_TIME();
+				}
+			}
+			else {
+				if (blockCount > 0) {
+					--blockCount;
+					hasDefense = true;
+				}
+			}
 		}
 
 		if (checkDefense && hasDefense && canUseDefense) {
 			int32_t defense = getDefense();
-			damage -= uniform_random(defense / 2, defense);
+			if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+				damage -= defense;
+			}
+			else {
+				damage -= uniform_random(defense / 2, defense);
+			}
 			if (damage <= 0) {
 				damage = 0;
 				blockType = BLOCK_DEFENSE;
@@ -864,10 +881,16 @@ BlockType_t Creature::blockHit(Creature* attacker, CombatType_t combatType, int3
 
 		if (checkArmor) {
 			int32_t armor = getArmor();
-			if (armor > 3) {
-				damage -= uniform_random(armor / 2, armor - (armor % 2 + 1));
-			} else if (armor > 0) {
-				--damage;
+			if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+				damage -= armor;
+			}
+			else {
+				if (armor > 3) {
+					damage -= uniform_random(armor / 2, armor - (armor % 2 + 1));
+				}
+				else if (armor > 0) {
+					--damage;
+				}
 			}
 
 			if (damage <= 0) {

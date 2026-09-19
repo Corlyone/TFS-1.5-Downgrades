@@ -24,6 +24,7 @@
 #include "spells.h"
 #include "events.h"
 #include "configmanager.h"
+#include "weapons.h"
 
 extern Game g_game;
 extern Monsters g_monsters;
@@ -378,6 +379,41 @@ void Monster::removeTarget(Creature* creature)
 	}
 }
 
+void Monster::addSkillPoint()
+{
+	if (skillLearningPoints == 0 || skillFactorPercent <= 999) {
+		return;
+	}
+
+	skillCurrentExp++;
+	if (skillCurrentExp < skillNextLevel) {
+		return;
+	}
+	skillCurrentExp = 0;
+
+	const int32_t delta = skillNextLevel;
+
+	currentSkill += mType->info.skillAddCount;
+
+	if (skillFactorPercent <= 1049) {
+		skillNextLevel = delta * (currentSkill + 2 - mType->info.baseSkill);
+		return;
+	}
+
+	const double factor = skillFactorPercent / 1000.0;
+	double pow;
+
+	if (static_cast<int32_t>(currentSkill + 2 - mType->info.baseSkill) < 0) {
+		pow = 1.0 / std::pow(factor, mType->info.baseSkill - currentSkill + 2);
+	}
+	else {
+		pow = std::pow(factor, currentSkill + 2 - mType->info.baseSkill);
+	}
+
+	const double formula = (pow / 1.0) / (factor / 1.0) * delta;
+	skillNextLevel = static_cast<uint32_t>(formula);
+}
+
 void Monster::updateTargetList()
 {
 	auto friendIterator = friendList.begin();
@@ -631,9 +667,9 @@ void Monster::onFollowCreatureComplete(const Creature* creature)
 }
 
 BlockType_t Monster::blockHit(Creature* attacker, CombatType_t combatType, int32_t& damage,
-                              bool checkDefense /* = false*/, bool checkArmor /* = false*/, bool /* field = false */, bool /* ignoreResistances = false */)
+	bool checkDefense /* = false*/, bool checkArmor /* = false*/, bool field /* = false */, bool ignoreResistances /* = false */, bool meleeHit /* = false */)
 {
-	BlockType_t blockType = Creature::blockHit(attacker, combatType, damage, checkDefense, checkArmor);
+	BlockType_t blockType = Creature::blockHit(attacker, combatType, damage, checkDefense, checkArmor, field, ignoreResistances, meleeHit);
 
 	if (damage != 0) {
 		int32_t elementMod = 0;
@@ -821,6 +857,16 @@ void Monster::doAttacking(uint32_t interval)
 	bool resetTicks = interval != 0;
 	attackTicks += interval;
 
+	if (earliestMeleeAttack >= OTSYS_TIME()) {
+		return;
+	}
+
+	int64_t nextAttackTime = OTSYS_TIME() + 200;
+	if (earliestMeleeAttack >= nextAttackTime) {
+		nextAttackTime = earliestMeleeAttack;
+	}
+	earliestMeleeAttack = nextAttackTime;
+
 	const Position& myPos = getPosition();
 	const Position& targetPos = attackedCreature->getPosition();
 
@@ -838,18 +884,36 @@ void Monster::doAttacking(uint32_t interval)
 					updateLook = false;
 				}
 
-				minCombatValue = spellBlock.minCombatValue;
-				maxCombatValue = spellBlock.maxCombatValue;
+				if (spellBlock.isMelee) {
+					const float_t multiplier = (maxCombatValue > 0)
+						? g_config.getFloat(ConfigManager::RATE_MONSTER_DEFENSE)
+						: g_config.getFloat(ConfigManager::RATE_MONSTER_ATTACK);
+
+					minCombatValue = maxCombatValue =
+						-Weapons::getMaxMeleeDamage(currentSkill, mType->info.baseAttack) * multiplier;
+				}
+				else {
+					minCombatValue = spellBlock.minCombatValue;
+					maxCombatValue = spellBlock.maxCombatValue;
+				}
+
 				spellBlock.spell->castSpell(this, attackedCreature);
 
 				if (spellBlock.isMelee) {
 					lastMeleeAttack = OTSYS_TIME();
+					addSkillPoint();
+
+					nextAttackTime = OTSYS_TIME() + 2000;
+					if (earliestMeleeAttack >= nextAttackTime) {
+						nextAttackTime = earliestMeleeAttack;
+					}
+					earliestMeleeAttack = nextAttackTime;
 				}
 			}
 		}
 
 		if (!inRange && spellBlock.isMelee) {
-			//melee swing out of reach
+			// melee swing out of reach
 			lastMeleeAttack = 0;
 		}
 	}
@@ -968,6 +1032,10 @@ void Monster::onThinkDefense(uint32_t interval)
 
 		if (defenseTicks % spellBlock.speed >= interval) {
 			//already used this spell for this round
+			continue;
+		}
+
+		if (!isSummon() && isFleeing() && uniform_random(1, 3) != 1) {
 			continue;
 		}
 
@@ -2085,4 +2153,39 @@ bool Monster::canPushItems() const
 	}
 
 	return mType->info.canPushItems;
+}
+
+int32_t Monster::getArmor() const
+{
+	int32_t armor = mType->info.armor;
+
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		if (armor > 1) {
+			armor = rand() % (armor >> 1) + (armor >> 1);
+		}
+	}
+
+	return armor;
+}
+
+int32_t Monster::getDefense() const
+{
+	int32_t totalDefense = mType->info.defense;
+
+	if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
+		fightMode_t newFightMode = FIGHTMODE_BALANCED;
+		if (!attackedCreature && OTSYS_TIME() >= earliestMeleeAttack) {
+			newFightMode = FIGHTMODE_DEFENSE;
+		}
+
+		if (newFightMode == FIGHTMODE_DEFENSE) {
+			totalDefense += 8 * totalDefense / 10;
+		} // monsters are never in full attack mode
+
+		const int32_t formula = (5 * currentSkill + 50) * totalDefense;
+		const int32_t rnd = rand() % 100;
+		totalDefense = formula * ((rand() % 100 + rnd) / 2) / 10000;
+	}
+
+	return totalDefense;
 }

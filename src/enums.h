@@ -598,6 +598,7 @@ struct CombatDamage
 	struct {
 		CombatType_t type = COMBAT_NONE;
 		int32_t value = 0;
+		int32_t maxValue = 0;
 	} primary = {}, secondary = {};
 
 	CombatOrigin origin = ORIGIN_NONE;
