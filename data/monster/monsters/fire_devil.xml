@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Fire Devil" nameDescription="a fire devil" race="blood" raceId="40" experience="145" speed="200" manacost="530">
+	<health now="200" max="200"/>
+	<look type="40" corpse="5985"/>
+	<targetchange interval="2000" chance="5"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="4"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="30" attack="22" skillfactor="1100" skillnextlevel="100" skilladdcount="1" />
+		<attack name="fire" interval="2000" chance="12" range="7" radius="4" target="1" min="-60" max="-90">
+			<attribute key="shootEffect" value="fire"/>
+			<attribute key="areaEffect" value="firearea"/>
+		</attack>
+		<attack name="fire" interval="2000" chance="25" range="7" radius="2" target="1" min="-20" max="-50">
+			<attribute key="shootEffect" value="fire"/>
+			<attribute key="areaEffect" value="firearea"/>
+		</attack>
+	</attacks>
+	<defenses armor="13" defense="15" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="1"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Hot, eh?"/>
+		<voice sentence="Hell, oh, hell!"/>
+	</voices>
+	<loot>
+		<item id="2191" countmax="1" chance="1" />
+		<item id="2050" countmax="2" chance="15000" />
+		<item id="2150" countmax="1" chance="300" />
+		<item id="2419" countmax="1" chance="6000" />
+		<item id="2548" countmax="1" chance="50000" />
+		<item id="2515" countmax="1" chance="200" />
+		<item id="2387" countmax="1" chance="1500" />
+		<item id="2568" countmax="1" chance="9000" />
+		<item id="2260" countmax="1" chance="11000" />
+		<item id="5670" countmax="1" chance="6000" />
+		<item id="5673" countmax="3" chance="8000" />
+	</loot>
+</monster>
+

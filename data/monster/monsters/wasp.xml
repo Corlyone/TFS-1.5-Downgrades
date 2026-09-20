@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Wasp" nameDescription="a wasp" race="venom" raceId="44" experience="24" speed="350" manacost="280">
+	<health now="35" max="35"/>
+	<look type="44" corpse="5989"/>
+	<targetchange interval="2000" chance="10"/>
+	<targetstrategy nearest="70" weakest="0" mostdamage="0" random="40" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="1"/>
+		<flag canpushitems="0"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="23" attack="12" poison="25" skillfactor="1100" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="4" defense="8" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="1"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Bssssss"/>
+	</voices>
+		<loot>
+		<item id="5902" countmax="3" chance="3200" />
+	</loot>
+</monster>
+

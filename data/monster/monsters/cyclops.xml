@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Cyclops" nameDescription="a cyclops" race="blood" raceId="22" experience="150" speed="210" manacost="490">
+	<health now="260" max="260"/>
+	<look type="22" corpse="5962"/>
+	<targetchange interval="2000" chance="5"/>
+	<targetstrategy nearest="90" weakest="0" mostdamage="40" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="50" attack="30" skillfactor="2000" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="17" defense="24" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Il lorstok human!"/>
+		<voice sentence="Toks utat."/>
+		<voice sentence="Human, uh whil dyh!"/>
+		<voice sentence="Youh ah trak!"/>
+		<voice sentence="Let da mashing begin!"/>
+	</voices>
+	<loot>
+		<item id="2129" countmax="1" chance="200" /><!-- wolf tooth chain -->
+		<item id="2406" countmax="1" chance="8000" /><!-- short sword -->
+		<item id="2510" countmax="1" chance="2000" /><!-- plate shield -->
+		<item id="2666" countmax="1" chance="50000" /><!-- meat -->
+		<item id="2671" countmax="2" chance="20000" /><!-- ham -->
+		<item id="2381" countmax="1" chance="700" /><!-- halberd -->
+		<item id="2148" countmax="20" chance="31000" /><!-- gold coin -->
+		<item id="2148" countmax="10" chance="53000" /><!-- gold coin -->
+		<item id="2490" countmax="1" chance="200" /><!-- dark helmet -->
+		<item id="2209" countmax="1" chance="100" /><!-- club ring -->
+		<item id="2513" countmax="1" chance="1500" /><!-- battle shield -->
+	</loot>
+</monster>
+

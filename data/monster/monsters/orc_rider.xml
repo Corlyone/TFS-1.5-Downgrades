@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Orc Rider" nameDescription="an orc rider" race="blood" raceId="4" experience="110" speed="280" manacost="490">
+	<health now="180" max="180"/>
+	<look type="4" corpse="6010"/>
+	<targetchange interval="2000" chance="5"/>
+	<targetstrategy nearest="70" weakest="30" mostdamage="0" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="48" attack="41" skillfactor="2000" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="9" defense="20">
+		<defense name="speed" interval="2000" chance="7" speedchange="500" duration="6000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>
+	</defenses>
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Grrrrrrr"/>
+		<voice sentence="Orc arga Huummmak!"/>
+	</voices>
+	<loot>
+		<item id="2129" countmax="1" chance="10000" /><!-- wolf tooth chain -->
+		<item id="2050" countmax="1" chance="8000" /><!-- torch -->
+		<item id="2482" countmax="1" chance="15000" /><!-- studded helmet -->
+		<item id="2483" countmax="1" chance="600" /><!-- scale armor -->
+		<item id="2428" countmax="1" chance="15000" /><!-- orcish axe -->
+		<item id="2425" countmax="1" chance="1000" /><!-- obsidian lance -->
+		<item id="2666" countmax="3" chance="30000" /><!-- meat -->
+		<item id="2148" countmax="80" chance="90" /><!-- gold coin -->
+		<item id="2148" countmax="10" chance="45000" /><!-- gold coin -->
+		<item id="2513" countmax="1" chance="1000" /><!-- battle shield -->
+		<item id="1988" countmax="1" chance="30000" /><!-- backpack -->
+	</loot>
+</monster>
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="The Old Widow" nameDescription="The Old Widow" race="venom" experience="4200" speed="340">
+	<health now="3550" max="3550"/>
+	<look type="208" corpse="5977"/>
+	<targetchange interval="2000" chance="10"/>
+	<targetstrategy nearest="70" weakest="20" mostdamage="0" random="10" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonfire="0"/>
+		<flag isboss="1"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" poison="160" skillfactor="1100" skillnextlevel="100" skilladdcount="2" skill="120" attack="95" />
+		<attack name="earth" interval="2000" chance="15" range="7" min="-250" max="-300">
+			<attribute key="shootEffect" value="poison"/>
+			<attribute key="areaEffect" value="poison"/>
+		</attack>
+		<attack name="speed" interval="2000" chance="20" range="7" speedchange="-900" duration="25000">
+			<attribute key="shootEffect" value="poison"/>
+			<attribute key="areaEffect" value="poison"/>
+		</attack>
+		<attack name="poisonfield" interval="2000" chance="10" range="7" radius="4" target="1">
+			<attribute key="shootEffect" value="poison"/>
+		</attack>
+	</attacks>
+	<defenses armor="45" defense="60">
+		<defense name="healing" interval="2000" chance="17" min="225" max="275">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</defense>
+		<defense name="speed" interval="2000" chance="8" speedchange="450" duration="6000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>
+	</defenses>
+	<elements>
+		<element energyPercent="10"/>
+		<element physicalPercent="20"/>
+		<element firePercent="20"/>
+	</elements>
+	<immunities>
+		<immunity earth="1"/>
+		<immunity lifedrain="1"/>
+		<immunity outfit="1"/>
+		<immunity drunk="1"/>
+		<immunity invisible="1"/>
+	</immunities>
+	<summons maxSummons="2">
+		<summon name="giant spider" interval="3000" chance="13" max="2"/>
+	</summons>
+	<loot>
+		<item id="2169" countmax="1" chance="1400" /><!-- time ring -->
+		<item id="2457" countmax="1" chance="10000" /><!-- steel helmet -->
+		<item id="2171" countmax="1" chance="200" /><!-- platinum amulet -->
+		<item id="2463" countmax="1" chance="20000" /><!-- plate armor -->
+		<item id="2477" countmax="1" chance="600" /><!-- knight legs -->
+		<item id="2476" countmax="1" chance="600" /><!-- knight armor -->
+		<item id="2148" countmax="22" chance="89910" /><!-- gold coin -->
+		<item id="2148" countmax="66" chance="89910" /><!-- gold coin -->
+		<item id="2148" countmax="77" chance="59940" /><!-- gold coin -->
+		<item id="2478" countmax="1" chance="16000" /><!-- brass legs -->
+	</loot>
+</monster>
+

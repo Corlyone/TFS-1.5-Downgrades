@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Badger" namedescription="a badger" race="blood" raceId="105" experience="5" speed="160" manacost="200">
+	<health now="23" max="23"/>
+	<look type="105" corpse="6034"/>
+	<targetchange interval="4000" chance="0"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="1"/>
+		<flag canpushitems="0"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="10"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="17" attack="10" skillfactor="1200" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="1" defense="3" />
+	<loot capacity="3000">
+		<item id="2666" countmax="1" chance="40000"/>
+		<!-- meat -->
+	</loot>
+</monster>
+

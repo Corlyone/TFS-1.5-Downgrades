@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Mimic" nameDescription="a mimic" race="blood" experience="0" speed="190">
+	<health now="30" max="30"/>
+	<look type="92" corpse="1740"/>
+	<targetchange interval="5000" chance="8"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="0"/>
+		<flag pushable="1"/>
+		<flag canpushitems="0"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="5"/>
+		<flag staticattack="0"/>
+		<flag runonhealth="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="23" attack="9" skillfactor="1000" skillnextlevel="50" skilladdcount="2" />
+	</attacks>
+	<defenses armor="2" defense="3" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<loot capacity="3000">
+		<item id="2679" countmax="3" chance="3000"/>
+		<!-- cherry -->
+		<item id="2148" countmax="6" chance="35000"/>
+		<!-- gold coin -->
+	</loot>
+</monster>
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Dworc Fleshhunter" nameDescription="a dworc fleshhunter" race="blood" raceId="215" experience="40" speed="260">
+	<health now="85" max="85"/>
+	<look type="215" corpse="6058"/>
+	<targetchange interval="4000" chance="0"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="1"/>
+		<flag canpushitems="0"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="8"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="25" attack="17" poison="20" skillfactor="1200" skillnextlevel="100" skilladdcount="1" />
+		<attack name="physical" interval="2000" chance="9" range="7" min="-1" max="-15">
+			<attribute key="shootEffect" value="throwingknife"/>
+		</attack>
+	</attacks>
+	<defenses armor="3" defense="8" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="1"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Grak brrretz!"/>
+		<voice sentence="Grow truk grrrrr."/>
+		<voice sentence="Prek tars, dekklep zurk."/>
+	</voices>
+	<loot>
+		<item id="3967" countmax="1" chance="500" /><!-- tribal mask -->
+		<item id="2050" countmax="1" chance="5500" /><!-- torch -->
+		<item id="2229" countmax="3" chance="3000" /><!-- skull -->
+		<item id="3964" countmax="1" chance="100" /><!-- ripper lance -->
+		<item id="2411" countmax="1" chance="2000" /><!-- poison dagger -->
+		<item id="2467" countmax="1" chance="11000" /><!-- leather armor -->
+		<item id="3965" countmax="1" chance="500" /><!-- hunting spear -->
+		<item id="2148" countmax="10" chance="72000" /><!-- gold coin -->
+		<item id="2568" countmax="1" chance="9000" /><!-- cleaver -->
+		<item id="2541" countmax="1" chance="1000" /><!-- bone shield -->
+	</loot>
+</monster>
+

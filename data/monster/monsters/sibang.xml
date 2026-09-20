@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Sibang" nameDescription="a sibang" race="blood" raceId="118" experience="105" speed="230">
+	<health now="225" max="225"/>
+	<look type="118" corpse="6045"/>
+	<targetchange interval="2000" chance="50"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="4"/>
+		<flag staticattack="70"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="33" attack="20" skillfactor="1500" skillnextlevel="100" skilladdcount="1" />
+		<attack name="physical" interval="2000" chance="25" range="7" min="-1" max="-55">
+			<attribute key="shootEffect" value="smallstone"/>
+		</attack>
+	</attacks>
+	<defenses armor="15" defense="32">
+		<defense name="speed" interval="2000" chance="12" speedchange="300" duration="3000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>
+	</defenses>
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="1"/>
+		<immunity drunk="1"/>
+		<immunity invisible="1"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Eeeeek! Eeeeek"/>
+		<voice sentence="Huh! Huh! Huh!"/>
+		<voice sentence="Ahhuuaaa!"/>
+	</voices>
+	<loot>
+		<item id="1294" countmax="3" chance="30000"/><!-- small stone -->
+		<item id="2675" countmax="5" chance="20000"/><!-- orange -->
+		<item id="2682" countmax="1" chance="10000"/><!-- melon -->
+		<item id="2148" countmax="25" chance="72000"/><!-- gold coin -->
+		<item id="2458" countmax="1" chance="4000"/><!-- chain helmet -->
+		<item id="2676" countmax="10" chance="5000"/><!-- banana -->
+		<item id="2676" countmax="2" chance="30000"/><!-- banana -->
+	</loot>
+</monster>
+

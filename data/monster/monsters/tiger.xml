@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Tiger" nameDescription="a tiger" race="blood" raceId="125" experience="40" speed="220" manacost="420">
+	<health now="75" max="75"/>
+	<look type="125" corpse="6051"/>
+	<targetchange interval="4000" chance="0"/>
+	<targetstrategy nearest="80" weakest="0" mostdamage="40" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="70"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="42" attack="15" skillfactor="2000" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="5" defense="15">
+		<defense name="speed" interval="2000" chance="12" speedchange="330" duration="3000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>
+	</defenses>
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<loot>
+		<item id="2666" countmax="3" chance="55000" /><!-- meat -->
+		<item id="2671" countmax="2" chance="22000" /><!-- ham -->
+	</loot>
+</monster>
+

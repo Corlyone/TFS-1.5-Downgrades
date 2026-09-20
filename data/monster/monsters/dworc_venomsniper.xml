@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Dworc Venomsniper" namedescription="a dworc venomsniper" race="blood" raceId="216" experience="35" speed="170">
+	<health now="80" max="80"/>
+	<look type="216" corpse="6059"/>
+	<targetchange interval="4000" chance="0"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="1"/>
+		<flag canpushitems="0"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="4"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="15"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="20" attack="10" skillfactor="1200" skillnextlevel="100" skilladdcount="1" />
+		<attack name="poisoncondition" interval="2000" chance="25" range="5" min="-14" max="-26">
+			<attribute key="shootEffect" value="poison"/>
+		</attack>
+	</attacks>
+	<defenses armor="3" defense="15" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="1"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Brak brrretz!"/>
+		<voice sentence="Grow truk grrrrr."/>
+		<voice sentence="Prek tars, dekklep zurk."/>
+	</voices>
+	<loot>
+		<item id="3967" countmax="1" chance="500" /><!-- tribal mask -->
+		<item id="2050" countmax="1" chance="5500" /><!-- torch -->
+		<item id="2410" countmax="2" chance="8000" /><!-- throwing knife -->
+		<item id="2229" countmax="2" chance="1000" /><!-- skull -->
+		<item id="2411" countmax="1" chance="1500" /><!-- poison dagger -->
+		<item id="2545" countmax="3" chance="5000" /><!-- poison arrow -->
+		<item id="2467" countmax="1" chance="10000" /><!-- leather armor -->
+		<item id="2148" countmax="10" chance="72000" /><!-- gold coin -->
+		<item id="2172" countmax="1" chance="100" /><!-- bronze amulet -->
+		<item id="3983" countmax="1" chance="100" /><!-- bast skirt -->
+	</loot>
+</monster>
+

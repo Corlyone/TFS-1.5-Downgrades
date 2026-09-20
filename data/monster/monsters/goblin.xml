@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Goblin" nameDescription="a goblin" race="blood" raceId="61" experience="25" speed="140" manacost="290">
+	<health now="50" max="50"/>
+	<look type="61" corpse="6002"/>
+	<targetchange interval="5000" chance="0"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="1"/>
+		<flag canpushitems="0"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="15"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="15" attack="10" skillfactor="1500" skillnextlevel="100" skilladdcount="1" />
+		<attack name="physical" interval="2000" chance="9" range="7" min="-1" max="-25">
+			<attribute key="shootEffect" value="smallstone"/>
+		</attack>
+	</attacks>
+	<defenses armor="6" defense="8" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Me have him!"/>
+		<voice sentence="Zig Zag! Gobo attack!"/>
+		<voice sentence="Help! Goblinkiller!"/>
+		<voice sentence="Bugga! Bugga!"/>
+		<voice sentence="Me green, me mean!"/>
+	</voices>
+	<loot>
+		<item id="1294" countmax="3" chance="30000" /><!-- small stone -->
+		<item id="2559" countmax="1" chance="10000" /><!-- small axe -->
+		<item id="2406" countmax="1" chance="9000" /><!-- short sword -->
+		<item id="2235" countmax="1" chance="7000" /><!-- moldy cheese -->
+		<item id="2461" countmax="1" chance="10000" /><!-- leather helmet -->
+		<item id="2467" countmax="1" chance="7500" /><!-- leather armor -->
+		<item id="2148" countmax="9" chance="40000" /><!-- gold coin -->
+		<item id="2667" countmax="1" chance="13000" /><!-- fish -->
+		<item id="2379" countmax="1" chance="18000" /><!-- dagger -->
+		<item id="2449" countmax="1" chance="5000" /><!-- bone club -->
+		<item id="2230" countmax="1" chance="12000" /><!-- bone -->
+	</loot>
+</monster>
+

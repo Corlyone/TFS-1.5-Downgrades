@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Amazon" nameDescription="an amazon" race="blood" raceId="77" experience="60" speed="190" manacost="390">
+	<health now="110" max="110"/>
+	<look type="137" head="113" body="120" legs="95" feet="115" corpse="20323"/>
+	<targetchange interval="2000" chance="50"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="1"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="4"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="24" attack="16" skillfactor="1200" skillnextlevel="100" skilladdcount="1" />
+		<attack name="physical" interval="2000" chance="10" range="7" min="-20" max="-30">
+			<attribute key="shootEffect" value="throwingknife"/>
+		</attack>
+	</attacks>
+	<defenses armor="11" defense="11" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Yeeee ha!"/>
+		<voice sentence="Your head shall be mine!"/>
+		<voice sentence="Your head will be mine!"/>
+	</voices>
+	<loot>
+		<item id="2050" countmax="1" chance="5000" /><!-- torch -->
+		<item id="2526" countmax="1" chance="5000" /><!-- studded shield -->
+		<item id="2147" countmax="1" chance="100" /><!-- small ruby -->
+		<item id="2229" countmax="2" chance="80000" /><!-- skull -->
+		<item id="2385" countmax="1" chance="23000" /><!-- sabre -->
+		<item id="2467" countmax="1" chance="50000" /><!-- leather armor -->
+		<item id="2148" countmax="10" chance="36000" /><!-- gold coin -->
+		<item id="2379" countmax="1" chance="80000" /><!-- dagger -->
+		<item id="2125" countmax="1" chance="200" /><!-- crystal necklace -->
+		<item id="2691" countmax="1" chance="30000" /><!-- brown bread -->
+	</loot>
+</monster>
+

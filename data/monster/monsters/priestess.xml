@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Priestess" nameDescription="a priestess" race="blood" raceId="58" experience="420" speed="190">
+	<health now="390" max="390"/>
+	<look type="58" corpse="20491"/>
+	<targetchange interval="5000" chance="8"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="4"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="25" attack="20" poison="250" skillfactor="1500" skillnextlevel="100" skilladdcount="1" />
+		<attack name="physical" interval="2000" chance="25" range="7" min="-55" max="-95">
+			<attribute key="shootEffect" value="death"/>
+		</attack>
+		<attack name="manadrain" interval="2000" chance="25" range="7" min="-60" max="-120">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</attack>
+	</attacks>
+	<defenses armor="30" defense="50">
+		<defense name="healing" interval="2000" chance="15" min="34" max="56">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</defense>
+	</defenses>
+	<elements>
+		<element earthPercent="20"/>
+		<element deathPercent="20"/>
+		<element physicalPercent="-13"/>
+		<element holyPercent="-10"/>
+	</elements>
+	<immunities>
+		<immunity energy="1"/>
+		<immunity fire="1"/>
+		<immunity invisible="1"/>
+	</immunities>
+	<summons maxSummons="2">
+		<summon name="ghoul" interval="2000" chance="8" max="2"/>
+	</summons>
+	<voices interval="5000" chance="10">
+		<voice sentence="Your energy is mine."/>
+		<voice sentence="Now your life is come to the end, hahahaha!"/>
+		<voice sentence="Throw the soul on the altar!"/>
+	</voices>
+	<loot>
+		<item id="2070" countmax="1" chance="1400" />
+		<item id="2791" countmax="1" chance="3500" />
+		<item id="2151" countmax="1" chance="700" />
+		<item id="2802" countmax="1" chance="14000" />
+		<item id="2674" countmax="2" chance="7500" />
+		<item id="2803" countmax="1" chance="6000" />
+		<item id="2760" countmax="1" chance="12000" />
+		<item id="2379" countmax="1" chance="23000" />
+		<item id="2125" countmax="1" chance="600" />
+		<item id="2192" countmax="1" chance="1200" />
+		<item id="2423" countmax="1" chance="1500" />
+		<item id="2032" countmax="1" chance="20000" />
+		<item id="1977" countmax="1" chance="7000" />
+		<item id="2529" countmax="1" chance="200" />
+		<item id="2323" countmax="1" chance="100" />
+	</loot>
+</monster>
+

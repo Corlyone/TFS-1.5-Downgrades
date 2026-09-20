@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Terror Bird" nameDescription="a terror bird" race="blood" raceId="218" experience="150" speed="230" manacost="490">
+	<health now="300" max="300"/>
+	<look type="218" corpse="6057"/>
+	<targetchange interval="2000" chance="5"/>
+	<targetstrategy nearest="80" weakest="0" mostdamage="40" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="46" attack="37" skillfactor="2000" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="13" defense="21" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="CRAAAHHH!"/>
+		<voice sentence="Gruuuh Gruuuh."/>
+		<voice sentence="Carrah Carrah!"/>
+	</voices>
+	<loot>
+		<item id="2666" countmax="2" chance="50000"/><!-- meat -->
+		<item id="2148" countmax="20" chance="36000"/><!-- gold coin -->
+		<item id="2148" countmax="10" chance="63000"/><!-- gold coin -->
+		<item id="3970" countmax="1" chance="100"/><!-- feather headdress -->
+	</loot>
+</monster>
+

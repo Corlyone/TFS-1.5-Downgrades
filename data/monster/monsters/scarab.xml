@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Scarab" nameDescription="a scarab" race="venom" raceId="83" experience="120" speed="180" manacost="395">
+	<health now="320" max="320"/>
+	<look type="83" corpse="6024"/>
+	<targetchange interval="2000" chance="0"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="1"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="80"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="42" attack="25" skillfactor="1500" skillnextlevel="50" skilladdcount="1" />
+		<attack name="poisonfield" interval="2000" chance="20" radius="1" target="0">
+			<attribute key="areaEffect" value="poff"/>
+		</attack>
+		<attack name="poison" interval="2000" chance="17" range="1" radius="1" target="1" min="-15" max="-25">
+			<attribute key="areaEffect" value="poison"/>
+		</attack>
+	</attacks>
+	<defenses armor="21" defense="26">
+		<defense name="speed" interval="2000" chance="5" speedchange="300" duration="4000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>
+	</defenses>
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="1"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="1"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<loot>
+		<item id="2149" countmax="1" chance="300" />
+		<item id="2150" countmax="1" chance="500" />
+		<item id="2159" countmax="1" chance="100" />
+		<item id="2159" countmax="1" chance="1000" />
+		<item id="2666" countmax="2" chance="54000" />
+		<item id="2442" countmax="1" chance="500" />
+		<item id="2148" countmax="40" chance="40050" />
+		<item id="2148" countmax="12" chance="63450" />
+		<item id="2439" countmax="1" chance="300" />
+		<item id="2544" countmax="3" chance="5000" />
+		<item id="5671" countmax="1" chance="6000" />
+	</loot>
+</monster>
+

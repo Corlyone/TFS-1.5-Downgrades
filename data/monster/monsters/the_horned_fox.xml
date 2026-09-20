@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="The Horned Fox" nameDescription="The Horned Fox" race="blood" experience="300" speed="230">
+	<health now="265" max="265"/>
+	<look type="202" corpse="5983"/>
+	<targetchange interval="2000" chance="5"/>
+	<targetstrategy nearest="70" weakest="10" mostdamage="20" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag isboss="1"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="54" attack="38" skillfactor="1500" skillnextlevel="100" skilladdcount="1" />
+		<attack name="physical" interval="2000" chance="25" range="7" min="-1" max="-120">
+			<attribute key="shootEffect" value="bolt"/>
+		</attack>
+		<attack name="poisoncondition" interval="2000" chance="17" range="7" min="-50" max="-120">
+			<attribute key="shootEffect" value="bolt"/>
+		</attack>
+	</attacks>
+	<defenses armor="17" defense="36">
+		<defense name="healing" interval="2000" chance="15" min="25" max="75">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>
+	</defenses>
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="1"/>
+		<immunity drunk="1"/>
+		<immunity invisible="1"/>
+	</immunities>
+	<summons maxSummons="4">
+		<summon name="minotaur archer" interval="2000" chance="13" max="2"/>
+		<summon name="minotaur guard" interval="2000" chance="13" max="2"/>
+	</summons>
+	<voices interval="5000" chance="10">
+		<voice sentence="You will never get me!"/>
+		<voice sentence="I'll be back!"/>
+		<voice sentence="Catch me, if you can!"/>
+		<voice sentence="Help me, boys!"/>
+	</voices>
+	<loot>
+		<item id="2666" countmax="1" chance="10000" /><!-- meat -->
+		<item id="2388" countmax="1" chance="9000" /><!-- hatchet -->
+		<item id="2148" countmax="20" chance="54000" /><!-- gold coin -->
+		<item id="2580" countmax="1" chance="5000" /><!-- fishing rod -->
+		<item id="2502" countmax="1" chance="9000" /><!-- dwarfen helmet -->
+		<item id="2387" countmax="1" chance="1000" /><!-- double axe -->
+		<item id="2648" countmax="1" chance="15000" /><!-- chain legs -->
+		<item id="2465" countmax="1" chance="14000" /><!-- brass armor -->
+		<item id="2513" countmax="1" chance="2000" /><!-- battle shield -->
+	</loot>
+</monster>
+

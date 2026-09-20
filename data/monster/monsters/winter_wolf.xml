@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Winter Wolf" nameDescription="a winter wolf" race="blood" raceId="52" experience="20" speed="190" manacost="260">
+	<health now="30" max="30"/>
+	<look type="52" corpse="5997"/>
+	<targetchange interval="2000" chance="0"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="1"/>
+		<flag canpushitems="0"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="21" attack="13" skillfactor="1500" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="2" defense="6" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Yoooohhuuuu!"/>
+	</voices>
+	<loot capacity="3000">
+		<item id="2666" countmax="2" chance="30000"/>
+		<!-- meat -->
+	</loot>
+</monster>
+

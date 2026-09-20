@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Orc Leader" nameDescription="an orc leader" race="blood" raceId="59" experience="270" speed="250" manacost="640">
+	<health now="450" max="450"/>
+	<look type="59" corpse="6001"/>
+	<targetchange interval="2000" chance="5"/>
+	<targetstrategy nearest="70" weakest="15" mostdamage="15" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonfire="1"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonpoison="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="52" attack="48" skillfactor="1500" skillnextlevel="100" skilladdcount="1" />
+		<attack name="physical" interval="2000" chance="17" range="7" min="-1" max="-70">
+			<attribute key="shootEffect" value="throwingknife"/>
+		</attack>
+	</attacks>
+	<defenses armor="20" defense="45" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="1"/>
+		<immunity poison="0"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="1"/>
+		<immunity drunk="1"/>
+		<immunity invisible="1"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Ulderek futgyr human!"/>
+	</voices>
+	<loot>
+		<item id="2475" countmax="1" chance="100" />
+		<item id="2410" countmax="4" chance="10000" />
+		<item id="2207" countmax="1" chance="4000" />
+		<item id="2419" countmax="1" chance="6000" />
+		<item id="2510" countmax="1" chance="5000" />
+		<item id="2647" countmax="1" chance="400" />
+		<item id="2463" countmax="1" chance="600" />
+		<item id="2666" countmax="2" chance="15000" />
+		<item id="2397" countmax="1" chance="5000" />
+		<item id="2148" countmax="35" chance="25200" />
+		<item id="2667" countmax="1" chance="30000" />
+		<item id="2379" countmax="1" chance="23000" />
+		<item id="2413" countmax="1" chance="800" />
+		<item id="2478" countmax="1" chance="2500" />
+		<item id="1988" countmax="1" chance="20000" />
+	</loot>
+</monster>
+

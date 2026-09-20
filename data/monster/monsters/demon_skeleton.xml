@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Demon Skeleton" nameDescription="a demon skeleton" race="undead" raceId="37" experience="240" speed="200" manacost="620">
+	<health now="400" max="400"/>
+	<look type="37" corpse="5963"/>
+	<targetchange interval="2000" chance="5"/>
+	<targetstrategy nearest="80" weakest="0" mostdamage="40" random="0" />
+	<flags>
+		<flag summonable="1"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="70" attack="45" skillfactor="1100" skillnextlevel="100" skilladdcount="2" /> <!-- attack 45 -->
+		<!-- <attack name="lifedrain" interval="2000" chance="10" range="1" target="1" min="-30" max="-50"/> -->
+	</attacks>
+	<defenses armor="25" defense="35" />
+	<immunities>
+		<immunity energy="0"/>
+		<immunity fire="1"/>
+		<immunity poison="1"/>
+		<immunity lifedrain="1"/>
+		<immunity paralyze="1"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<loot>
+		<item id="2050" countmax="1" chance="50000" /><!-- torch -->
+		<item id="2399" countmax="3" chance="10000" /><!-- throwing star -->
+		<item id="2194" countmax="1" chance="300" /><!-- mysterious fetish -->
+		<item id="2178" countmax="1" chance="200" /><!-- mind stone -->
+		<item id="2459" countmax="1" chance="2000" /><!-- iron helmet -->
+		<item id="2515" countmax="1" chance="100" /><!-- guardian shield -->
+		<item id="2148" countmax="25" chance="27000" /><!-- gold coin -->
+		<item id="2148" countmax="20" chance="36000" /><!-- gold coin -->
+		<item id="2513" countmax="1" chance="1000" /><!-- battle shield -->
+		<item id="2417" countmax="1" chance="3000" /><!-- battle hammer -->
+	</loot>
+</monster>
+

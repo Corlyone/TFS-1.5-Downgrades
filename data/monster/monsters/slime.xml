@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Slime" nameDescription="a slime" race="venom" raceId="19" experience="160" speed="140">
+	<health now="150" max="150"/>
+	<look type="19" corpse="1490"/>
+	<targetchange interval="2000" chance="0"/>
+	<targetstrategy nearest="100" weakest="10" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+		<flag canwalkonenergy="0"/>
+		<flag canwalkonfire="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="22" attack="42" skillfactor="1100" skillnextlevel="100" skilladdcount="1" />
+	</attacks>
+	<defenses armor="3" defense="10" />
+	<immunities>
+		<immunity physical="0"/>
+		<immunity energy="0"/>
+		<immunity fire="0"/>
+		<immunity poison="1"/>
+		<immunity lifedrain="0"/>
+		<immunity paralyze="0"/>
+		<immunity outfit="0"/>
+		<immunity drunk="0"/>
+		<immunity invisible="0"/>
+	</immunities>
+	<summons maxSummons="3">
+		<summon name="slime" interval="2000" chance="10" max="3"/>
+	</summons>
+	<voices interval="5000" chance="10">
+		<voice sentence="Blubb"/>
+	</voices>
+</monster>
+
