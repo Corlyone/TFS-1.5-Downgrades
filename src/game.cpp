@@ -3886,9 +3886,11 @@ bool Game::combatBlockHit(CombatDamage& damage, Creature* attacker, Creature* ta
 		secondaryBlockType = BLOCK_NONE;
 	}
 
-	damage.blockType = primaryBlockType;
+	damage.blockType = primaryBlockType != BLOCK_NONE ? primaryBlockType : secondaryBlockType;
 
-	return (primaryBlockType != BLOCK_NONE) && (secondaryBlockType != BLOCK_NONE);
+	const bool hasPrimaryDamage = damage.primary.type != COMBAT_NONE;
+	const bool hasSecondaryDamage = damage.secondary.type != COMBAT_NONE;
+	return (!hasPrimaryDamage || primaryBlockType != BLOCK_NONE) && (!hasSecondaryDamage || secondaryBlockType != BLOCK_NONE);
 }
 
 void Game::combatGetTypeInfo(CombatType_t combatType, Creature* target, TextColor_t& color, uint8_t& effect)

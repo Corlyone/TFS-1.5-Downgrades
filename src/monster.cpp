@@ -58,6 +58,9 @@ Monster::Monster(MonsterType* mType) :
 	baseSpeed = mType->info.baseSpeed;
 	internalLight = mType->info.light;
 	hiddenHealth = mType->info.hiddenHealth;
+	currentSkill = mType->info.baseSkill;
+	skillFactorPercent = mType->info.skillFactorPercent;
+	skillNextLevel = mType->info.skillNextLevel;
 
 	// register creature events
 	for (const std::string& scriptName : mType->info.scripts) {
@@ -381,7 +384,7 @@ void Monster::removeTarget(Creature* creature)
 
 void Monster::addSkillPoint()
 {
-	if (skillLearningPoints == 0 || skillFactorPercent <= 999) {
+	if (skillLearningPoints == 0 || skillFactorPercent <= 999 || skillNextLevel == 0) {
 		return;
 	}
 
@@ -2182,9 +2185,10 @@ int32_t Monster::getDefense() const
 			totalDefense += 8 * totalDefense / 10;
 		} // monsters are never in full attack mode
 
-		const int32_t formula = (5 * currentSkill + 50) * totalDefense;
+		const int64_t formula = (5LL * currentSkill + 50) * totalDefense;
+		const int64_t baseFormula = std::max<int64_t>(100, 5LL * mType->info.baseSkill + 50) * 100;
 		const int32_t rnd = rand() % 100;
-		totalDefense = formula * ((rand() % 100 + rnd) / 2) / 10000;
+		totalDefense = static_cast<int32_t>(formula * ((rand() % 100 + rnd) / 2) / baseFormula);
 	}
 
 	return totalDefense;

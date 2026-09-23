@@ -852,8 +852,8 @@ BlockType_t Creature::blockHit(Creature* attacker, CombatType_t combatType, int3
 			if (g_config.getBoolean(ConfigManager::USE_CLASSIC_COMBAT_FORMULAS)) {
 				if (OTSYS_TIME() >= static_cast<int64_t>(earliestDefendTime)) {
 					hasDefense = true;
-					earliestDefendTime = lastDefense + 2000;
 					lastDefense = OTSYS_TIME();
+					earliestDefendTime = lastDefense + 2000;
 				}
 			}
 			else {
